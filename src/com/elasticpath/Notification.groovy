@@ -9,6 +9,6 @@ class Notification {
 
 	static def sendNotification(script, buildStatus, color, userMention) {
 		slackSend color: color,
-				message: "${script.env.JOB_NAME} - #${script.env.BUILD_NUMBER} ($script.env.BRANCH_NAME_NO_SPACES) " + buildStatus + ", " + "${script.env.currentBuild.durationString.replace(' and counting', '')} (<${script.env.BUILD_URL}|Link>) " + userMention
+				message: "${script.env.JOB_NAME} - #${script.env.BUILD_NUMBER} ($script.env.BRANCH_NAME_NO_SPACES) " + buildStatus + ", " + "${script.currentBuild.durationString.replace(' and counting', '')} (<${script.env.BUILD_URL}|Link>) " + userMention
 	}
 }
