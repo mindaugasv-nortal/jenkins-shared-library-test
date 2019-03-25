@@ -3,7 +3,7 @@ package com.elasticpath
 class Notification {
 
 	static def sendSlackNotification(script, buildStatus, color) {
-		def userMention = BUILD_USER_SLACK_ID != "" ? "<@${script.env.BUILD_USER_SLACK_ID}>" : ""
+		def userMention = script.env.BUILD_USER_SLACK_ID != "" ? "<@${script.env.BUILD_USER_SLACK_ID}>" : ""
 		sendSlackNotificationInternal(buildStatus, color, userMention)
 	}
 
