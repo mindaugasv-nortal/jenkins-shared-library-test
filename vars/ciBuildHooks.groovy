@@ -7,4 +7,5 @@ void onSuccess(def script) {
 }
 
 void onFailure(def script) {
+	def jobName = script.env.JOB_NAME
 }
