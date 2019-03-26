@@ -7,5 +7,12 @@ void onSuccess(def script) {
 }
 
 void onFailure(def script) {
-	def jobName = script.env.JOB_NAME
+	new GithubStatusSetter(script).setBuildStatus(script, "Build failed", "FAILURE")
+
+	SlackSender slackSender = new SlackSender(script)
+	if (script.BRANCH_NAME.equals("master")) {
+		slackSender.sendSlackNotification(script, "Failure", "danger", "@channel")
+	} else {
+		slackSender.sendSlackNotification(script, "Failure", "danger")
+	}
 }

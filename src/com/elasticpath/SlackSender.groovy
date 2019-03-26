@@ -10,10 +10,6 @@ class SlackSender {
 		this.script = script
 	}
 
-	def methodMissing(String name, args) {
-		return script."${name}" (args)
-	}
-
 	def String lookupUserSlackId(userEmail) {
 		withCredentials([string(credentialsId: 'slack-id-lookup', variable: 'TOKEN')]) {
 			def curlCommand = ["curl", "-s",
