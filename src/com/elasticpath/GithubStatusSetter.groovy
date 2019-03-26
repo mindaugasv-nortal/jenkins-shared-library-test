@@ -3,7 +3,7 @@ package com.elasticpath
 class GithubStatusSetter {
 
 	void setBuildStatus(def script, String message, String state) {
-		def repositoryUrl = scm.userRemoteConfigs[0].url
+		def repositoryUrl = script.scm.userRemoteConfigs[0].url
 		script.timeout(time: 1, unit: 'MINUTES') {
 			script.retry(3) {
 				script.step([
