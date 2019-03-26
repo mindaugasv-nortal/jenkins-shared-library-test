@@ -2,6 +2,16 @@ package com.elasticpath
 
 class GithubStatusSetter {
 
+	def script
+
+	GithubStatusSetter(def script) {
+		this.script = script
+	}
+
+	def methodMissing(String name, args) {
+		return script."${name}" (args)
+	}
+
 	void setBuildStatus(def script, String message, String state) {
 		def repositoryUrl = script.scm.userRemoteConfigs[0].url
 		script.timeout(time: 1, unit: 'MINUTES') {

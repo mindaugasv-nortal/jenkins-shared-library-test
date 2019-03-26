@@ -4,6 +4,16 @@ import groovy.json.JsonSlurper
 
 class SlackSender {
 
+	def script
+
+	SlackSender(def script) {
+		this.script = script
+	}
+
+	def methodMissing(String name, args) {
+		return script."${name}" (args)
+	}
+
 	def String lookupUserSlackId(userEmail) {
 		withCredentials([string(credentialsId: 'slack-id-lookup', variable: 'TOKEN')]) {
 			def curlCommand = ["curl", "-s",

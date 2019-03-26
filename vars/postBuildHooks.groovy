@@ -2,8 +2,8 @@ import com.elasticpath.GithubStatusSetter
 import com.elasticpath.SlackSender
 
 void onSuccess(def script) {
-	new GithubStatusSetter().setBuildStatus(script, "Build complete", "SUCCESS")
-	new SlackSender().sendSlackNotification(script, "Success", "good")
+	new GithubStatusSetter(script).setBuildStatus(script, "Build complete", "SUCCESS")
+	new SlackSender(script).sendSlackNotification(script, "Success", "good")
 }
 
 void onFailure(def script) {
