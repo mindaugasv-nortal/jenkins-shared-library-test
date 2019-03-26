@@ -1,7 +1,6 @@
 
 void setBuildStatus(def script, String message, String state) {
 	def repositoryUrl = scm.userRemoteConfigs[0].url
-	echo "test: " + repositoryUrl
 	script.timeout(time: 1, unit: 'MINUTES') {
 		script.retry(3) {
 			script.step([
