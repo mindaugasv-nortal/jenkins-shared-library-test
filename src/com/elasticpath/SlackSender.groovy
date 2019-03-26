@@ -38,14 +38,10 @@ class SlackSender {
 
 	def String getUserSlackId() {
 		def BUILD_USER_SLACK_ID = ""
-		wrap([$class: 'BuildUser']) {
-			script {
-				if (BUILD_USER == "admin") {
-					BUILD_USER_SLACK_ID = ""
-				} else {
-					BUILD_USER_SLACK_ID = lookupUserSlackId(BUILD_USER_EMAIL)
-				}
-			}
+		if (BUILD_USER == "admin") {
+			BUILD_USER_SLACK_ID = ""
+		} else {
+			BUILD_USER_SLACK_ID = lookupUserSlackId(BUILD_USER_EMAIL)
 		}
 		return BUILD_USER_SLACK_ID
 	}
