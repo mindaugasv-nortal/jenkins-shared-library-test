@@ -1,3 +1,5 @@
+package com.elasticpath
+
 class GithubStatusSetter {
 
 	void setBuildStatus(def script, String message, String state) {

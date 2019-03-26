@@ -1,3 +1,5 @@
+package com.elasticpath
+
 import groovy.json.JsonSlurper
 
 class SlackSender {
