@@ -38,7 +38,7 @@ class SlackSender {
 
 	def String getUserSlackId() {
 		def BUILD_USER_SLACK_ID = ""
-		if (BUILD_USER == "admin") {
+		if (script.env.BUILD_USER == "admin") {
 			BUILD_USER_SLACK_ID = ""
 		} else {
 			BUILD_USER_SLACK_ID = lookupUserSlackId(BUILD_USER_EMAIL)
