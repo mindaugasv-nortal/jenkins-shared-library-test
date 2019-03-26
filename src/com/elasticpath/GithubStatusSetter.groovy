@@ -8,6 +8,7 @@ class GithubStatusSetter {
 
 	GithubStatusSetter(def script, def githubCommitStatusContext) {
 		this.script = script
+		this.githubCommitStatusContext = githubCommitStatusContext
 	}
 
 	void setBuildStatus(String message, String state) {
