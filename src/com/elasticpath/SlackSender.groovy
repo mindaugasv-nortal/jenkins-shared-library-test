@@ -18,7 +18,7 @@ class SlackSender {
 							   "--retry", "3",
 							   "-H", "Content-Type: application/x-www-form-urlencoded",
 							   "-X", "POST", "https://slack.com/api/users.lookupByEmail",
-							   "-d", "token=${TOKEN}&email=${BUILD_USER_EMAIL}"]
+							   "-d", "token=${TOKEN}&email=${userEmail}"]
 			def response = curlCommand.execute().text
 			try {
 				def slurper = new JsonSlurper().parseText(response)
@@ -37,7 +37,7 @@ class SlackSender {
 		if (script.env.BUILD_USER == "admin") {
 			BUILD_USER_SLACK_ID = ""
 		} else {
-			BUILD_USER_SLACK_ID = lookupUserSlackId(BUILD_USER_EMAIL)
+			BUILD_USER_SLACK_ID = lookupUserSlackId(script.env.BUILD_USER_EMAIL)
 		}
 		return BUILD_USER_SLACK_ID
 	}
@@ -45,10 +45,10 @@ class SlackSender {
 	/*
 	 * Sends a Slack message to the designated channel, also notifying the build user when applicable.
 	 */
-	def sendSlackNotification(script, buildStatus, color) {
+	def sendSlackNotification(buildStatus, color) {
 		def BUILD_USER_SLACK_ID = getUserSlackId()
 		def userMention = BUILD_USER_SLACK_ID != "" ? "<@${BUILD_USER_SLACK_ID}>" : ""
-		sendSlackNotification(script, buildStatus, color, userMention)
+		sendSlackNotification(buildStatus, color, userMention)
 	}
 
 	/*
@@ -56,7 +56,7 @@ class SlackSender {
 	 * Provide the buildStatus as it will appear in the notification, as well as the color (good,
 	 * warning, danger, or any hex color code (eg. #439FE0).
 	 */
-	def sendSlackNotification(script, buildStatus, color, userMention) {
+	def sendSlackNotification(buildStatus, color, userMention) {
 		script.slackSend color: color,
 				message: "${script.env.JOB_NAME} - #${script.env.BUILD_NUMBER} ($script.env.BRANCH_NAME_NO_SPACES) " + buildStatus + ", " + "${script.currentBuild.durationString.replace(' and counting', '')} (<${script.env.BUILD_URL}|Link>) " + userMention
 	}
